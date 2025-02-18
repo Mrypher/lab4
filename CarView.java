@@ -116,7 +116,13 @@ public class CarView extends JFrame{
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stopAllCars(gasAmount);
+                carC.stopAllCars();
+            }
+        });
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.startAllCars();
             }
         });
 

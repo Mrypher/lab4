@@ -70,12 +70,16 @@ public class CarController {
             car.brake(brake);
         }
     }
-    void stopAllCars(int amount) {
+    void stopAllCars() {
+
+        for (Car car : cars
+        ) car.stopEngine();
+    }
+    void startAllCars() {
 
         for (Car car : cars
         ) {
-            for (int i = 0; i<10000; i++){
-            car.brake(0.999999);
-        }}
+            car.startEngine();
+        }
     }
 }
