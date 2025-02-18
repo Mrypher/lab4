@@ -3,12 +3,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Color;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 class carTest{
 
-    Car car = new car(20,120.0,60.0,Color.red,"Nissan"){};
+    Car car = new Car(20,120.0,60.0,Color.red,"Nissan"){};
 
     @Test
     void TestConstructor() {
