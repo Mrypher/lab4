@@ -18,6 +18,8 @@ public abstract class Car extends VehicleFramework{
         }
     }
 
+
+
     public boolean getLoaded(){
         return this.Loaded;
     }

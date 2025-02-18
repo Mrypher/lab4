@@ -3,7 +3,7 @@ import java.awt.Color;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class CarTest{
+class CarTest {
 
     Car car = new Car(20,120.0,1000,Color.red,"Nissan"){};
 

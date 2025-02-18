@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CarController {
     // member fields:
-
+    private  boolean checkHitbox;
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
@@ -30,7 +30,7 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240(4,120,0, Color.BLUE,"Volvo240"));
+        cc.cars.add(new Volvo240());
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -45,10 +45,37 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
            for (Car car : cars) {
-                car.move();
-                int x = (int) Math.round(car.getPosition()[0]);
-                int y = (int) Math.round(car.getPosition()[1]);
-                frame.drawPanel.moveit(x, y);
+               int x = (int) Math.round(car.getPosition()[0]);
+
+               int y = (int) Math.round(car.getPosition()[1]);
+
+                if (y >= 250 || y <= -1 ) {
+
+                    car.turnRight();
+                    car.turnRight();
+                    car.startEngine();
+                    if (y <= -1){
+                       car.setPositionY(1);
+
+                    } else if (y >= 250) {
+                        car.setPositionY(249);
+
+                    }
+
+
+                    frame.drawPanel.moveit(x, y);
+
+
+
+
+                }else{
+                    car.move();
+                    x = (int) Math.round(car.getPosition()[0]);
+
+                    y = (int) Math.round(car.getPosition()[1]);
+                    frame.drawPanel.moveit(x, y);
+                }
+
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -82,4 +109,11 @@ public class CarController {
             car.startEngine();
         }
     }
+    void turboOn() {
+
+        for (Car car : cars
+        ) {
+
+        }
+}
 }

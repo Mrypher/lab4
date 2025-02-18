@@ -22,6 +22,9 @@ public abstract class VehicleFramework implements Movable{
         this.direction = "n";
         stopEngine();
     }
+    public void setPositionY(int positionY){
+        position[1] = positionY;
+    }
 
     public int getNrDoors(){
         return nrDoors;
