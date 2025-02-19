@@ -76,10 +76,10 @@ public abstract class VehicleFramework implements Movable{
     @Override
     public void move(){
         switch(direction){
-            case "n": this.position[1]=this.position[1]+currentSpeed; break;
-            case "e": this.position[0]=this.position[0]+currentSpeed; break;
-            case "w": this.position[0]=this.position[0]-currentSpeed; break;
-            case "s": this.position[1]=this.position[1]-currentSpeed; break;
+            case "n": this.position[1]=this.position[1]+this.currentSpeed; break;
+            case "e": this.position[0]=this.position[0]+this.currentSpeed; break;
+            case "w": this.position[0]=this.position[0]-this.currentSpeed; break;
+            case "s": this.position[1]=this.position[1]-this.currentSpeed; break;
         }
     }
 

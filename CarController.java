@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class CarController {
     // member fields:
-    private  boolean checkHitbox;
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
@@ -30,16 +29,16 @@ public class CarController {
 
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
+        CarController ccp = new CarController();
 
-        cc.vehicles.add(new Volvo240());
-        cc.vehicles.add(new Saab95());
-        cc.vehicles.add(new Scania());
+        ccp.vehicles.add(new Volvo240());
+        ccp.vehicles.add(new Saab95());
+        ccp.vehicles.add(new Scania());
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        ccp.frame = new CarView("CarSim 1.0", ccp);
 
         // Start the timer
-        cc.timer.start();
+        ccp.timer.start();
 
     }
 
@@ -48,37 +47,17 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-           for (VehicleFramework vehicle : vehicles) {
-               int x = (int) Math.round(vehicle.getPosition()[0]);
-
-               int y = (int) Math.round(vehicle.getPosition()[1]);
-
-                if (y >= 501 || y <= -1 ) {
-
-                    vehicle.turnRight();
-                    vehicle.turnRight();
-                    vehicle.startEngine();
-                    if (y <= -1){
-                        vehicle.setPositionY(0);
-
-                    } else if (y >= 501) {
-                        vehicle.setPositionY(500);
-
-                    }
-                    frame.drawPanel.moveit(x, y);
-                }else{
-                    vehicle.move();
-                    x = (int) Math.round(vehicle.getPosition()[0]);
-
-                    y = (int) Math.round(vehicle.getPosition()[1]);
-                    frame.drawPanel.moveit(x, y);
-                }
-
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+            for (VehicleFramework vehicle : vehicles) {
+                vehicle.move();
+                int x = (int) Math.round(vehicle.getPosition()[0]);
+                int y = (int) Math.round(vehicle.getPosition()[1]);
+    
+                frame.drawPanel.moveit(vehicle, x, y); // Pass the specific vehicle
             }
+            frame.drawPanel.repaint();
         }
     }
+    
 
     // Calls the gas method for each car once
     void gas(int amount) {
