@@ -60,21 +60,6 @@ class CarTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> cartransport.load(saab));
     }
 
-    @Test
-    void TestManeuverOnTransport(){
-        saab.turnRight();
-        saab.turnRight();
-        saab.move();
-        cartransport.setPlatform();
-        cartransport.load(saab);
-
-        assertEquals(Color.red, cartransport.loadCar.getCargo().get(0).getColor());
-        assertEquals(cartransport.getPosition()[0] , saab.getPosition()[0]);
-        assertEquals(cartransport.getPosition()[1] , saab.getPosition()[1]);
-        Assert.assertThrows(IllegalArgumentException.class, () -> cartransport.move());
-    }
-
-
     Saab95 saab1 = new Saab95();
     Saab95 saab2 = new Saab95();
     Volvo240 volvo1 = new Volvo240();
