@@ -52,8 +52,14 @@ public class CarController {
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
 
+
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
                 if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
+
+
+    
+                frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
+                if (y >= 501 || y <= -1 ) {
 
 
                     vehicle.turnRight();
@@ -73,7 +79,9 @@ public class CarController {
 
                     }
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
+
                 }else{
+
                     vehicle.move();
                     x = (int) Math.round(vehicle.getPosition()[0]);
 
@@ -130,4 +138,4 @@ public class CarController {
             }
         }
     }
-}
+}}
