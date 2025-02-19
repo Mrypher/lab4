@@ -32,8 +32,10 @@ public class CarController {
         CarController ccp = new CarController();
 
         ccp.vehicles.add(new Volvo240());
-        ccp.vehicles.add(new Saab95());
         ccp.vehicles.add(new Scania());
+        ccp.vehicles.add(new Saab95());
+        
+
         // Start a new view and send a reference of self
         ccp.frame = new CarView("CarSim 1.0", ccp);
 
@@ -55,13 +57,6 @@ public class CarController {
 
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
                 if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
-
-
-    
-                frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
-                if (y >= 501 || y <= -1 ) {
-
-
                     vehicle.turnRight();
                     /*vehicle.startEngine();*/
 
@@ -80,18 +75,18 @@ public class CarController {
                     }
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
 
-                }else{
-
+                }
+                else{
                     vehicle.move();
                     x = (int) Math.round(vehicle.getPosition()[0]);
 
                     y = (int) Math.round(vehicle.getPosition()[1]);
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
                 }
-            }
             frame.drawPanel.repaint();
         }
     }
+}
 
 
     // Calls the gas method for each car once
@@ -138,4 +133,4 @@ public class CarController {
             }
         }
     }
-}}
+}

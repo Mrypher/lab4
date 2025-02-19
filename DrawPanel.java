@@ -7,6 +7,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawPanel extends JPanel {
+    BufferedImage volvoImage;
+    BufferedImage scaniaImage;
+    BufferedImage saabImage;
+    BufferedImage volvoWorkshopImage;
     private final List<BufferedImage> carImages = new ArrayList<>();
     private final List<Point> carPositions = new ArrayList<>();
     private final List<VehicleFramework> vehicles;
@@ -18,15 +22,25 @@ public class DrawPanel extends JPanel {
         this.vehicles = vehicles;
 
         // Load images and initialize positions
-        for (VehicleFramework vehicle : vehicles) {
+        /*for (VehicleFramework vehicle : vehicles) {*/
+            
             try {
-                carImages.add(ImageIO.read(DrawPanel.class.getResourceAsStream("pics/" + vehicle.getClass().getSimpleName() + ".jpg")));
-            } catch (IOException e) {
-                carImages.add(null);
-                e.printStackTrace();
+                volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+                scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+                saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
+                volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+                carImages.add(volvoImage);
+                carImages.add(scaniaImage);
+                carImages.add(saabImage);
+                carImages.add(volvoWorkshopImage);
+            } 
+            catch (IOException ex) {
+                ex.printStackTrace();
             }
-            carPositions.add(new Point(0, 0)); // Default start position
-        }
+            carPositions.add(new Point(0, 0));
+            carPositions.add(new Point(0, 0));
+            carPositions.add(new Point(0, 0));
+            carPositions.add(new Point(0, 0)); 
     }
 
     public void moveit(int index, int x, int y) {
