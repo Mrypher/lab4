@@ -42,6 +42,9 @@ public class CarController {
 
     }
 
+
+
+
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
      * */
@@ -55,12 +58,6 @@ public class CarController {
 
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
                 if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
-
-
-    
-                frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
-                if (y >= 501 || y <= -1 ) {
-
 
                     vehicle.turnRight();
                     /*vehicle.startEngine();*/
@@ -88,14 +85,16 @@ public class CarController {
                     y = (int) Math.round(vehicle.getPosition()[1]);
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
                 }
-            }
+
             frame.drawPanel.repaint();
         }
+    }
     }
 
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
         ) {
@@ -138,4 +137,4 @@ public class CarController {
             }
         }
     }
-}}
+}
