@@ -49,16 +49,16 @@ public class CarController {
 
                int y = (int) Math.round(car.getPosition()[1]);
 
-                if (y >= 250 || y <= -1 ) {
+                if (y >= 500 || y <= -1 ) {
 
                     car.turnRight();
                     car.turnRight();
                     car.startEngine();
                     if (y <= -1){
-                       car.setPositionY(1);
+                       car.setPositionY(0);
 
-                    } else if (y >= 250) {
-                        car.setPositionY(249);
+                    } else if (y >= 501) {
+                        car.setPositionY(500);
 
                     }
 
