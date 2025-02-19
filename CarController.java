@@ -53,6 +53,26 @@ public class CarController {
                 int y = (int) Math.round(vehicle.getPosition()[1]);
     
                 frame.drawPanel.moveit(vehicle, x, y); // Pass the specific vehicle
+                if (y >= 501 || y <= -1 ) {
+
+                    vehicle.turnRight();
+                    vehicle.turnRight();
+                    vehicle.startEngine();
+                    if (y <= -1){
+                        vehicle.setPositionY(0);
+
+                    } else if (y >= 501) {
+                        vehicle.setPositionY(500);
+
+                    }
+                    frame.drawPanel.moveit(vehicle,x, y);
+                }else{
+                    vehicle.move();
+                    x = (int) Math.round(vehicle.getPosition()[0]);
+
+                    y = (int) Math.round(vehicle.getPosition()[1]);
+                    frame.drawPanel.moveit(vehicle,x, y);
+                }
             }
             frame.drawPanel.repaint();
         }

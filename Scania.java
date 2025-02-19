@@ -4,6 +4,7 @@ public class Scania extends Trucks{
 
     public Scania(){
         super(2, 100, 4000, Color.white, "Scania");
+        this.position = new double[]{400,0};
     }
 
 }
