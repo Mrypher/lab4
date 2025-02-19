@@ -5,7 +5,7 @@ public class Saab95 extends Car implements TurboVehicle{
 
     public Saab95(){
         super(4, 100, 1400, Color.red, "Saab95");
-        this.position = new double[]{200,0};
+        this.position = new double[]{0,200};
     }
 
 

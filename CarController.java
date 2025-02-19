@@ -7,10 +7,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
- */ 
+ * This class represents the Controller part in the MVC pattern.
+ * It's responsibilities is to listen to the View and responds in a appropriate manner by
+ * modifying the model state and the updating the view.
+ */
 
 public class CarController {
     // member fields:
@@ -43,47 +43,54 @@ public class CarController {
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
+     * view to update its images. Change this method to your needs.
+     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (VehicleFramework vehicle : vehicles) {
                 vehicle.move();
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
-    
-                frame.drawPanel.moveit(vehicle, x, y); // Pass the specific vehicle
-                if (y >= 501 || y <= -1 ) {
+
+                frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
+                if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
+
 
                     vehicle.turnRight();
-                    vehicle.turnRight();
-                    vehicle.startEngine();
+                    /*vehicle.startEngine();*/
+
                     if (y <= -1){
                         vehicle.setPositionY(0);
 
                     } else if (y >= 501) {
                         vehicle.setPositionY(500);
 
+                    }else if (x <=-1) {
+                        vehicle.setPositionX(0);
+
+                    }else if (x >= 701) {
+                        vehicle.setPositionX(700);
+
                     }
-                    frame.drawPanel.moveit(vehicle,x, y);
+                    frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
                 }else{
                     vehicle.move();
                     x = (int) Math.round(vehicle.getPosition()[0]);
 
                     y = (int) Math.round(vehicle.getPosition()[1]);
-                    frame.drawPanel.moveit(vehicle,x, y);
+                    frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
                 }
             }
             frame.drawPanel.repaint();
         }
     }
-    
+
 
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
-                ) {
+        ) {
             vehicle.gas(gas);
         }
     }
@@ -124,4 +131,3 @@ public class CarController {
         }
     }
 }
-

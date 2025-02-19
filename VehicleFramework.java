@@ -25,6 +25,9 @@ public abstract class VehicleFramework implements Movable{
     public void setPositionY(int positionY){
         position[1] = positionY;
     }
+    public void setPositionX(int positionX){
+        position[0] = positionX;
+    }
 
     public int getNrDoors(){
         return nrDoors;
