@@ -19,14 +19,17 @@ public class DrawPanel extends JPanel{
     Point scaniaPoint = new Point();
 
     BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(0,450);
+    Point volvoWorkshopPoint = new Point(0,470);
 
     // TODO: Make this general for all cars
     void moveit(int x, int y){
         volvoPoint.x = x;
         volvoPoint.y = y;
+
+        saabPoint.y = y;
         saabPoint.x = x + 200;
 
+        scaniaPoint.y = y;
         scaniaPoint.x = x + 400;
 
 
@@ -64,9 +67,9 @@ public class DrawPanel extends JPanel{
         g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
 
-        g.drawImage(saabImage, saabPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        g.drawImage(saabImage, saabPoint.x, saabPoint.y, null); // see javadoc for more info on the parameters
 
-        g.drawImage(scaniaImage, scaniaPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null); // see javadoc for more info on the parameters
 
     }
 }

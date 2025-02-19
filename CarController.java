@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /*
@@ -22,7 +24,7 @@ public class CarController {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
+    ArrayList<VehicleFramework> vehicles = new ArrayList<>();
 
     //methods:
 
@@ -30,13 +32,15 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
-
+        cc.vehicles.add(new Volvo240());
+        cc.vehicles.add(new Saab95());
+        cc.vehicles.add(new Scania());
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
         // Start the timer
         cc.timer.start();
+
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
@@ -44,35 +48,29 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-           for (Car car : cars) {
-               int x = (int) Math.round(car.getPosition()[0]);
+           for (VehicleFramework vehicle : vehicles) {
+               int x = (int) Math.round(vehicle.getPosition()[0]);
 
-               int y = (int) Math.round(car.getPosition()[1]);
+               int y = (int) Math.round(vehicle.getPosition()[1]);
 
-                if (y >= 500 || y <= -1 ) {
+                if (y >= 501 || y <= -1 ) {
 
-                    car.turnRight();
-                    car.turnRight();
-                    car.startEngine();
+                    vehicle.turnRight();
+                    vehicle.turnRight();
+                    vehicle.startEngine();
                     if (y <= -1){
-                       car.setPositionY(0);
+                        vehicle.setPositionY(0);
 
                     } else if (y >= 501) {
-                        car.setPositionY(500);
+                        vehicle.setPositionY(500);
 
                     }
-
-
                     frame.drawPanel.moveit(x, y);
-
-
-
-
                 }else{
-                    car.move();
-                    x = (int) Math.round(car.getPosition()[0]);
+                    vehicle.move();
+                    x = (int) Math.round(vehicle.getPosition()[0]);
 
-                    y = (int) Math.round(car.getPosition()[1]);
+                    y = (int) Math.round(vehicle.getPosition()[1]);
                     frame.drawPanel.moveit(x, y);
                 }
 
@@ -85,35 +83,46 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
+        for (VehicleFramework vehicle : vehicles
                 ) {
-            car.gas(gas);
+            vehicle.gas(gas);
         }
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (Car car : cars
+        for (VehicleFramework vehicle : vehicles
         ) {
-            car.brake(brake);
+            vehicle.brake(brake);
         }
     }
     void stopAllCars() {
 
-        for (Car car : cars
-        ) car.stopEngine();
+        for (VehicleFramework vehicle : vehicles
+        ) vehicle.stopEngine();
     }
     void startAllCars() {
 
-        for (Car car : cars
+        for (VehicleFramework vehicle : vehicles
         ) {
-            car.startEngine();
+            vehicle.startEngine();
         }
     }
     void turboOn() {
 
-        for (Car car : cars
+        for (VehicleFramework vehicle : vehicles
         ) {
-
+            if (vehicle instanceof TurboVehicle) {
+                ((TurboVehicle) vehicle).setTurboOn();
+            }
         }
+    }
+    void turboOff() {
+
+        for (VehicleFramework vehicle : vehicles) {
+            if (vehicle instanceof TurboVehicle){
+                ((TurboVehicle) vehicle).setTurboOff();
+            }
+        }
+    }
 }
-}
+
