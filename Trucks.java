@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class Trucks extends VehicleFramework{
+public abstract class Trucks extends VehicleFramework implements BedVehicle{
 
     private int platform;
 
@@ -10,17 +10,26 @@ public abstract class Trucks extends VehicleFramework{
     }
 
     public int getPlatform(){
-        return platform;
+        return this.platform;
     }
 
-    protected void setPlatform(){
+    @Override
+    public void lowerPlatform(){
         if (getCurrentSpeed()==0){
-            if(getPlatform() == 0){
-                platform = 70;
-            }
-            else {
-                platform = 0;
-            }
+            this.platform = 70;
+        }
+        else{
+            throw new IllegalArgumentException("You cannot LOWER the truckbed when moving");
+        }
+    }
+
+    @Override
+    public void liftPlatform(){
+        if (getCurrentSpeed()==0){
+            this.platform = 0;
+        }
+        else{
+            throw new IllegalArgumentException("You cannot LIFT the truckbed when moving");
         }
     }
 
@@ -29,7 +38,7 @@ public abstract class Trucks extends VehicleFramework{
         if(this.getPlatform() == 0){
             super.move();
         }
-        else{
+        else if (getCurrentSpeed() > 0){
             throw new IllegalArgumentException("Platform must be of angle 0 to drive");
         }
     }

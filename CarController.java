@@ -24,7 +24,7 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<VehicleFramework> vehicles = new ArrayList<>();
-
+    CarWorkshop<Volvo240> VolvoWorkshop = new CarWorkshop<>(new double[]{0,470}, 2);
     //methods:
 
     public static void main(String[] args) {
@@ -32,8 +32,10 @@ public class CarController {
         CarController ccp = new CarController();
 
         ccp.vehicles.add(new Volvo240());
-        ccp.vehicles.add(new Saab95());
         ccp.vehicles.add(new Scania());
+        ccp.vehicles.add(new Saab95());
+        
+
         // Start a new view and send a reference of self
         ccp.frame = new CarView("CarSim 1.0", ccp);
 
@@ -42,23 +44,30 @@ public class CarController {
 
     }
 
-
-
-
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (VehicleFramework vehicle : vehicles) {
-                vehicle.move();
+                try {
+                    vehicle.move();
+
+                }
+                catch( IllegalArgumentException exc) {
+                    continue;
+                }
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
 
+                if (vehicle instanceof Volvo240 && !((Volvo240) vehicle).getLoaded()){
+                    if (y >= 470){
+                        VolvoWorkshop.load((Volvo240) vehicle);
+                    }
+                }
 
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
                 if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
-
                     vehicle.turnRight();
                     /*vehicle.startEngine();*/
 
@@ -77,24 +86,22 @@ public class CarController {
                     }
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
 
-                }else{
-
+                }
+                else{
                     vehicle.move();
                     x = (int) Math.round(vehicle.getPosition()[0]);
 
                     y = (int) Math.round(vehicle.getPosition()[1]);
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
                 }
-
             frame.drawPanel.repaint();
         }
     }
-    }
+}
 
 
     // Calls the gas method for each car once
-
-    public void gas(int amount) {
+    void gas(int amount) {
         double gas = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
         ) {
@@ -109,7 +116,6 @@ public class CarController {
         }
     }
     void stopAllCars() {
-
         for (VehicleFramework vehicle : vehicles
         ) vehicle.stopEngine();
     }
@@ -121,7 +127,6 @@ public class CarController {
         }
     }
     void turboOn() {
-
         for (VehicleFramework vehicle : vehicles
         ) {
             if (vehicle instanceof TurboVehicle) {
@@ -130,10 +135,23 @@ public class CarController {
         }
     }
     void turboOff() {
-
         for (VehicleFramework vehicle : vehicles) {
             if (vehicle instanceof TurboVehicle){
                 ((TurboVehicle) vehicle).setTurboOff();
+            }
+        }
+    }
+    void lowerBed() {
+        for (VehicleFramework vehicle : vehicles) {
+            if (vehicle instanceof Trucks){
+                ((Trucks) vehicle).lowerPlatform();
+            }
+        }
+    }
+    void liftBed() {
+        for (VehicleFramework vehicle : vehicles) {
+            if (vehicle instanceof Trucks){
+                ((Trucks) vehicle).liftPlatform();
             }
         }
     }
