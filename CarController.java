@@ -52,16 +52,15 @@ public class CarController {
             for (VehicleFramework vehicle : vehicles) {
                 try {
                     vehicle.move();
-
                 }
-                catch( IllegalArgumentException exc) {
+                catch( Exception exc) {
                     continue;
                 }
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
 
                 if (vehicle instanceof Volvo240 && !((Volvo240) vehicle).getLoaded()){
-                    if (y >= 470){
+                    if (y >= 450){
                         VolvoWorkshop.load((Volvo240) vehicle);
                     }
                 }
@@ -88,7 +87,12 @@ public class CarController {
 
                 }
                 else{
+                    try{
                     vehicle.move();
+                    }
+                    catch(Exception exc1){
+                        continue;
+                    }
                     x = (int) Math.round(vehicle.getPosition()[0]);
 
                     y = (int) Math.round(vehicle.getPosition()[1]);
@@ -105,16 +109,25 @@ public class CarController {
         double gas = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
         ) {
+            try{
             vehicle.gas(gas);
+            }
+            catch(Exception e){
+                continue;
+            }
         }
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
-        ) {
-            vehicle.brake(brake);
+        ) try{
+            vehicle.brake(amount);
+            }
+            catch(Exception e){
+                continue;
+            }
         }
-    }
+    
     void stopAllCars() {
         for (VehicleFramework vehicle : vehicles
         ) vehicle.stopEngine();

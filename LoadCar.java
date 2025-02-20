@@ -17,6 +17,7 @@ public class LoadCar {
                 if(!car.getLoaded()){
                 cargo.add(car);
                 car.position = this.position;
+                car.stopEngine();
                 car.setLoaded();
                 }
                 else{
