@@ -1,9 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /*
@@ -121,7 +118,7 @@ public class CarController {
         double brake = ((double) amount) / 100;
         for (VehicleFramework vehicle : vehicles
         ) try{
-            vehicle.brake(amount);
+            vehicle.brake(brake);
             }
             catch(Exception e){
                 continue;
