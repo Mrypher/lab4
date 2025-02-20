@@ -126,10 +126,23 @@ public class CarController {
         }
     }
     void turboOff() {
-
         for (VehicleFramework vehicle : vehicles) {
             if (vehicle instanceof TurboVehicle){
                 ((TurboVehicle) vehicle).setTurboOff();
+            }
+        }
+    }
+    void lowerBed() {
+        for (VehicleFramework vehicle : vehicles) {
+            if (vehicle instanceof Trucks){
+                ((Trucks) vehicle).lowerPlatform();
+            }
+        }
+    }
+    void liftBed() {
+        for (VehicleFramework vehicle : vehicles) {
+            if (vehicle instanceof Trucks){
+                ((Trucks) vehicle).liftPlatform();
             }
         }
     }

@@ -10,16 +10,21 @@ public abstract class Trucks extends VehicleFramework{
     }
 
     public int getPlatform(){
-        return platform;
+        return this.platform;
     }
 
-    protected void setPlatform(){
+    protected void lowerPlatform(){
         if (getCurrentSpeed()==0){
-            if(getPlatform() == 0){
-                platform = 70;
+            if(this.getPlatform() == 0){
+                this.platform = 70;
             }
-            else {
-                platform = 0;
+        }
+    }
+
+    protected void liftPlatform(){
+        if (getCurrentSpeed()==0){
+            if (this.getPlatform()==70){
+                this.platform = 0;
             }
         }
     }
