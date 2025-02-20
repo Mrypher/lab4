@@ -50,7 +50,12 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (VehicleFramework vehicle : vehicles) {
-                vehicle.move();
+                try {
+                    vehicle.move();
+                }
+                catch(RuntimeException exc) {
+                    continue;
+                }
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
 
@@ -105,7 +110,6 @@ public class CarController {
         }
     }
     void stopAllCars() {
-
         for (VehicleFramework vehicle : vehicles
         ) vehicle.stopEngine();
     }
@@ -117,7 +121,6 @@ public class CarController {
         }
     }
     void turboOn() {
-
         for (VehicleFramework vehicle : vehicles
         ) {
             if (vehicle instanceof TurboVehicle) {
