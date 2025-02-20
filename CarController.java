@@ -24,7 +24,7 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<VehicleFramework> vehicles = new ArrayList<>();
-
+    CarWorkshop<Volvo240> VolvoWorkshop = new CarWorkshop<>(new double[]{0,470}, 2);
     //methods:
 
     public static void main(String[] args) {
@@ -52,13 +52,19 @@ public class CarController {
             for (VehicleFramework vehicle : vehicles) {
                 try {
                     vehicle.move();
+
                 }
-                catch(RuntimeException exc) {
+                catch( IllegalArgumentException exc) {
                     continue;
                 }
                 int x = (int) Math.round(vehicle.getPosition()[0]);
                 int y = (int) Math.round(vehicle.getPosition()[1]);
 
+                if (vehicle instanceof Volvo240 && !((Volvo240) vehicle).getLoaded()){
+                    if (y >= 470){
+                        VolvoWorkshop.load((Volvo240) vehicle);
+                    }
+                }
 
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
                 if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
