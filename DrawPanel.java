@@ -1,45 +1,48 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawPanel extends JPanel {
     private final CarController controller;
-    BufferedImage volvoImage;
-    BufferedImage scaniaImage;
-    BufferedImage saabImage;
-    BufferedImage volvoWorkshopImage;
-    private final List<BufferedImage> carImages = new ArrayList<>();
-    private final List<Point> carPositions = new ArrayList<>();
+    private final Map<String, BufferedImage> vehicleImages = new HashMap<>();
+    private final ArrayList<Point> carPositions = new ArrayList<>();
+    private BufferedImage workshopImage;
+
     public DrawPanel(int x, int y, CarController controller) {
         this.controller = controller;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
 
-        // Load images and initialize positions
-        /*for (VehicleFramework vehicle : vehicles) {*/
-            
-            try {
-                volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-                scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-                saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-                volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
-                carImages.add(volvoImage);
-                carImages.add(scaniaImage);
-                carImages.add(saabImage);
-                carImages.add(volvoWorkshopImage);
-            } 
-            catch (IOException ex) {
-                ex.printStackTrace();
+        loadImages();
+        initializeCarPositions();
+    }
+
+    private void loadImages() {
+        try {
+            workshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+
+            for (VehicleFramework vehicle : controller.vehicles) {
+                String imagePath = getImagePathForVehicle(vehicle);
+                BufferedImage image = ImageIO.read(DrawPanel.class.getResourceAsStream(imagePath));
+                vehicleImages.put(vehicle.getClass().getSimpleName(), image);
             }
-            carPositions.add(new Point(0, 0));
-            carPositions.add(new Point(0, 0));
-            carPositions.add(new Point(0, 0));
-            carPositions.add(new Point(0, 0)); 
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void initializeCarPositions() {
+        for (int i = 0; i < controller.vehicles.size(); i++) {
+            carPositions.add(new Point(0, 0)); // Default starting position
+        }
+    }
+
+    private String getImagePathForVehicle(VehicleFramework vehicle) {
+        return "pics/" + vehicle.getClass().getSimpleName() + ".jpg";
     }
 
     public void moveit(int index, int x, int y) {
@@ -52,9 +55,11 @@ public class DrawPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoWorkshopImage,0,460,null);
+        g.drawImage(workshopImage, 0, 460, null);
+
         for (int i = 0; i < controller.vehicles.size(); i++) {
-            BufferedImage img = carImages.get(i);
+            VehicleFramework vehicle = controller.vehicles.get(i);
+            BufferedImage img = vehicleImages.get(vehicle.getClass().getSimpleName());
             Point pos = carPositions.get(i);
             if (img != null) {
                 g.drawImage(img, pos.x, pos.y, null);
