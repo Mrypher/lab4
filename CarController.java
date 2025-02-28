@@ -31,7 +31,8 @@ public class CarController {
         ccp.vehicles.add(new Volvo240());
         ccp.vehicles.add(new Scania());
         ccp.vehicles.add(new Saab95());
-        
+
+
 
         // Start a new view and send a reference of self
         ccp.frame = new CarView("CarSim 1.0", ccp);
@@ -63,7 +64,7 @@ public class CarController {
                 }
 
                 frame.drawPanel.moveit(vehicles.indexOf(vehicle), x, y); // Pass the specific vehicle
-                if (y >= 501 || y <= -1 || x <= -1 || x >= 701) {
+                if (y >= 501 || y <= -1 || x <= -1 || x >= 901) {
                     vehicle.turnRight();
                     /*vehicle.startEngine();*/
 
@@ -76,8 +77,8 @@ public class CarController {
                     }else if (x <=-1) {
                         vehicle.setPositionX(0);
 
-                    }else if (x >= 701) {
-                        vehicle.setPositionX(700);
+                    }else if (x >= 901) {
+                        vehicle.setPositionX(900);
 
                     }
                     frame.drawPanel.moveit(vehicles.indexOf(vehicle),x, y);
@@ -162,6 +163,17 @@ public class CarController {
             if (vehicle instanceof Trucks){
                 ((Trucks) vehicle).liftPlatform();
             }
+        }
+    }
+    void addCar() {
+        vehicles.add(new Volvo240());
+
+    }
+    void removeCar() {
+        try {
+            vehicles.removeLast();
+        }
+        catch(Exception exc){
         }
     }
 }

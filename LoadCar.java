@@ -28,9 +28,7 @@ public class LoadCar {
                 throw new IllegalArgumentException("Car weight exceeds 2 tons");
             }
         }
-        else{
-            throw new IllegalArgumentException("Maximum number of cars have been loaded");
-        }
+
 
     }
 
