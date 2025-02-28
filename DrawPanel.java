@@ -7,19 +7,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawPanel extends JPanel {
+    private final CarController controller;
     BufferedImage volvoImage;
     BufferedImage scaniaImage;
     BufferedImage saabImage;
     BufferedImage volvoWorkshopImage;
     private final List<BufferedImage> carImages = new ArrayList<>();
     private final List<Point> carPositions = new ArrayList<>();
-    private final List<VehicleFramework> vehicles;
-
-    public DrawPanel(int x, int y, List<VehicleFramework> vehicles) {
+    public DrawPanel(int x, int y, CarController controller) {
+        this.controller = controller;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-        this.vehicles = vehicles;
 
         // Load images and initialize positions
         /*for (VehicleFramework vehicle : vehicles) {*/
@@ -54,7 +53,7 @@ public class DrawPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(volvoWorkshopImage,0,460,null);
-        for (int i = 0; i < vehicles.size(); i++) {
+        for (int i = 0; i < controller.vehicles.size(); i++) {
             BufferedImage img = carImages.get(i);
             Point pos = carPositions.get(i);
             if (img != null) {
