@@ -51,7 +51,12 @@ public class DrawPanel extends JPanel {
             repaint();
         }
     }
-
+    public void removeLastCarPosition(){
+        if (!carPositions.isEmpty()){
+            carPositions.remove(carPositions.size() - 1);
+            repaint();
+        }
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,6 +69,8 @@ public class DrawPanel extends JPanel {
                 Point pos = carPositions.get(i);
                 if (img != null) {
                     g.drawImage(img, pos.x, pos.y, null);
+                }else{
+                    g.drawImage(null,0,0,null);
                 }
             }
             finally{
@@ -73,6 +80,8 @@ public class DrawPanel extends JPanel {
                     Point pos = carPositions.get(i);
                     if (img != null) {
                         g.drawImage(img, pos.x, pos.y, null);
+                    }else{
+                        g.drawImage(null,0,0,null);
                     }
                 }
 

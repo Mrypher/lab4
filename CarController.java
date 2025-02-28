@@ -166,14 +166,18 @@ public class CarController {
         }
     }
     void addCar() {
-        vehicles.add(new Volvo240());
-
+        if (vehicles.size() <= 10) {
+            vehicles.add(new Volvo240());
+        }
     }
     void removeCar() {
         try {
             vehicles.removeLast();
+            frame.drawPanel.removeLastCarPosition();
+            
         }
         catch(Exception exc){
+
         }
     }
 }
