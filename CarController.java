@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.ArrayList;
 
 /*
@@ -13,16 +14,17 @@ public class CarController {
     // member fields:
     // The delay (ms) corresponds to 20 updates a sec (hz)
     Model model;
+    private Timer timer;
     private final int delay = 50;
+
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     // A list of cars, modify if needed
 
-    CarWorkshop<Volvo240> VolvoWorkshop = new CarWorkshop<>(new double[]{0,470}, 2);
+
 
     public CarController() {
         this.model = new Model();
@@ -46,68 +48,16 @@ public class CarController {
         ccp.frame = new CarView("CarSim 1.0", ccp);
 
         // Start the timer
-        ccp.timer.start();
 
+        TimerListener timerListener = new TimerListener(ccp.model, ccp.frame);
+        ccp.timer = new Timer(ccp.delay, timerListener);
+        ccp.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
      * */
-    public class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            for (VehicleFramework vehicle : model.getVehicles() ) {
-                try {
-                    vehicle.move();
-                }
-                catch( Exception exc) {
-                    continue;
-                }
-                int x = (int) Math.round(vehicle.getPosition()[0]);
-                int y = (int) Math.round(vehicle.getPosition()[1]);
 
-                if (vehicle instanceof Volvo240 && !((Volvo240) vehicle).getLoaded()){
-                    if (y >= 450){
-                        VolvoWorkshop.load((Volvo240) vehicle);
-                    }
-                }
-
-                frame.drawPanel.moveit(model.getVehicles() .indexOf(vehicle), x, y); // Pass the specific vehicle
-                if (y >= 501 || y <= -1 || x <= -1 || x >= 901) {
-                    vehicle.turnRight();
-                    /*vehicle.startEngine();*/
-
-                    if (y <= -1){
-                        vehicle.setPositionY(0);
-
-                    } else if (y >= 501) {
-                        vehicle.setPositionY(500);
-
-                    }else if (x <=-1) {
-                        vehicle.setPositionX(0);
-
-                    }else if (x >= 901) {
-                        vehicle.setPositionX(900);
-
-                    }
-                    frame.drawPanel.moveit(model.getVehicles() .indexOf(vehicle),x, y);
-
-                }
-                else{
-                    try{
-                        vehicle.move();
-                    }
-                    catch(Exception exc1){
-                        continue;
-                    }
-                    x = (int) Math.round(vehicle.getPosition()[0]);
-
-                    y = (int) Math.round(vehicle.getPosition()[1]);
-                    frame.drawPanel.moveit(model.getVehicles() .indexOf(vehicle),x, y);
-                }
-                frame.drawPanel.repaint();
-            }
-        }
-    }
 
     // Calls the gas method for each car once
     void gas(int amount) {
@@ -174,20 +124,20 @@ public class CarController {
         }
     }
     void addCar() {
-        if (model.getVehicles() .size() <= 10) {
-            model.getVehicles() .add(new Volvo240());
+        if (model.getVehicles().size() <= 10) {
+            model.getVehicles().add(new Volvo240());
         }
     }
     void removeCar() {
         try {
-            if(checkIfLoaded((Car) model.getVehicles() .getLast())){
-                VolvoWorkshop.unload((Volvo240) model.getVehicles() .getLast());
-                model.getVehicles() .removeLast();
+            if(checkIfLoaded((Car) model.getVehicles().getLast())){
+                model.getVolvoWorkshop().unload((Volvo240) model.getVehicles().getLast());
+                model.getVehicles().removeLast();
                 frame.drawPanel.removeLastCarPosition();
 
             }
             else{
-                model.getVehicles() .removeLast();
+                model.getVehicles().removeLast();
                 frame.drawPanel.removeLastCarPosition();
             }
 
