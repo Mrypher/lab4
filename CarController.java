@@ -28,8 +28,8 @@ public class CarController {
         // Instance of this class
         CarController ccp = new CarController();
 
-        ccp.vehicles.add(new Volvo240());
         ccp.vehicles.add(new Scania());
+        ccp.vehicles.add(new Volvo240());
         ccp.vehicles.add(new Saab95());
 
 
@@ -172,12 +172,25 @@ public class CarController {
     }
     void removeCar() {
         try {
-            vehicles.removeLast();
-            frame.drawPanel.removeLastCarPosition();
-            
+            if(checkIfLoaded((Car) vehicles.getLast())){
+                VolvoWorkshop.unload((Volvo240) vehicles.getLast());
+                vehicles.removeLast();
+                frame.drawPanel.removeLastCarPosition();
+
+            }
+            else{
+                vehicles.removeLast();
+                frame.drawPanel.removeLastCarPosition();
+            }
+
         }
         catch(Exception exc){
 
         }
+    }
+    boolean checkIfLoaded(Car car){
+        if (car.getLoaded()){
+            return true;
+        }else return false;
     }
 }
