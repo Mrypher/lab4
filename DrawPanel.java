@@ -6,12 +6,15 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawPanel extends JPanel {
+    private  Model model;
     private final CarController controller;
     private final Map<String, BufferedImage> vehicleImages = new HashMap<>();
     private  ArrayList<Point> carPositions = new ArrayList<>();
     private BufferedImage workshopImage;
 
-    public DrawPanel(int x, int y, CarController controller) {
+
+    public DrawPanel(int x, int y,CarController controller) {
+        this.model = model;
         this.controller = controller;
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
@@ -25,7 +28,7 @@ public class DrawPanel extends JPanel {
         try {
             workshopImage = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg")));
 
-            for (VehicleFramework vehicle : controller.vehicles) {
+            for (VehicleFramework vehicle : controller.model.getVehicles()) {
                 String imagePath = getImagePathForVehicle(vehicle);
                 BufferedImage image = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(imagePath)));
                 vehicleImages.put(vehicle.getClass().getSimpleName(), image);
@@ -36,7 +39,7 @@ public class DrawPanel extends JPanel {
     }
 
     private void initializeCarPositions() {
-        for (int i = 0; i < controller.vehicles.size(); i++) {
+        for (int i = 0; i < controller.model.getVehicles().size(); i++) {
             carPositions.add(new Point(0, 0)); // Default starting position
         }
     }
@@ -62,9 +65,9 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(workshopImage, 0, 464, null);
 
-        for (int i = 0; i < controller.vehicles.size(); i++) {
+        for (int i = 0; i < controller.model.getVehicles().size(); i++) {
             try {
-                VehicleFramework vehicle = controller.vehicles.get(i);
+                VehicleFramework vehicle = controller.model.getVehicles().get(i);
                 BufferedImage img = vehicleImages.get(vehicle.getClass().getSimpleName());
                 Point pos = carPositions.get(i);
                 if (img != null) {
@@ -74,7 +77,7 @@ public class DrawPanel extends JPanel {
                 }
             }
             finally{
-                    VehicleFramework vehicle = controller.vehicles.get(i);
+                    VehicleFramework vehicle = controller.model.getVehicles().get(i);
                     BufferedImage img = vehicleImages.get(vehicle.getClass().getSimpleName());
                     carPositions.add(new Point(0, 0));
                     Point pos = carPositions.get(i);
