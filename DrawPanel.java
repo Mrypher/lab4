@@ -60,7 +60,7 @@ public class DrawPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(workshopImage, 0, 460, null);
+        g.drawImage(workshopImage, 0, 464, null);
 
         for (int i = 0; i < controller.vehicles.size(); i++) {
             try {
