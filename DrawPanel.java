@@ -15,7 +15,7 @@ public class DrawPanel extends JPanel {
 
     public DrawPanel(int x, int y, CarController controller) {
         this.controller = controller;
-         // Use the passed model instead of creating a new one
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
