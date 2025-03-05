@@ -24,6 +24,9 @@ public class CarController {
 
     CarWorkshop<Volvo240> VolvoWorkshop = new CarWorkshop<>(new double[]{0,470}, 2);
 
+    public CarController() {
+        this.model = new Model();
+    }
 
 
     //methods:
