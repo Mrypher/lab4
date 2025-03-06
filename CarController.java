@@ -88,7 +88,7 @@ public class CarController {
     }
     void addCar() {
         if (model.getVehicles().size() <= 10) {
-            model.addVehicle(new Volvo240());
+            model.addVehicle(VehicleFactory.createVehicle("Volvo"));
         }
     }
     void removeCar() {

@@ -6,9 +6,9 @@ public class  Main {
         CarController ccp = new CarController();
 
 
-        ccp.model.getVehicles() .add(new Scania());
-        ccp.model.getVehicles() .add(new Volvo240());
-        ccp.model.getVehicles() .add(new Saab95());
+        ccp.model.addVehicle(VehicleFactory.createVehicle("Scania"));
+        ccp.model.addVehicle(VehicleFactory.createVehicle("Volvo"));
+        ccp.model.addVehicle(VehicleFactory.createVehicle("Saab"));
 
 
 
