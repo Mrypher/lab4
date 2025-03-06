@@ -11,53 +11,16 @@ import java.util.ArrayList;
  */
 
 public class CarController {
-    // member fields:
-    // The delay (ms) corresponds to 20 updates a sec (hz)
+    public Timer timer;
+    public int delay = 20;
+
     Model model;
-    private Timer timer;
-    private final int delay = 50;
 
-    // The timer is started with a listener (see below) that executes the statements
-    // each step between delays.
-
-    // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    // A list of cars, modify if needed
-
-
 
     public CarController() {
         this.model = new Model();
     }
-
-
-    //methods:
-
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController ccp = new CarController();
-
-
-        ccp.model.getVehicles() .add(new Scania());
-        ccp.model.getVehicles() .add(new Volvo240());
-        ccp.model.getVehicles() .add(new Saab95());
-
-
-
-        // Start a new view and send a reference of self
-        ccp.frame = new CarView("CarSim 1.0", ccp);
-
-        // Start the timer
-
-        TimerListener timerListener = new TimerListener(ccp.model, ccp.frame);
-        ccp.timer = new Timer(ccp.delay, timerListener);
-        ccp.timer.start();
-    }
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-     * view to update its images. Change this method to your needs.
-     * */
-
 
     // Calls the gas method for each car once
     void gas(int amount) {
@@ -133,17 +96,15 @@ public class CarController {
             if(checkIfLoaded((Car) model.getVehicles().getLast())){
                 model.getVolvoWorkshop().unload((Volvo240) model.getVehicles().getLast());
                 model.getVehicles().removeLast();
-                frame.drawPanel.removeLastCarPosition();
 
             }
             else{
                 model.getVehicles().removeLast();
-                frame.drawPanel.removeLastCarPosition();
-            }
 
+            }
+            frame.drawPanel.removeLastCarPosition();
         }
         catch(Exception exc){
-
         }
     }
     boolean checkIfLoaded(Car car){
