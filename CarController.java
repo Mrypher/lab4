@@ -25,7 +25,7 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (VehicleFramework vehicle : model.getVehicles() 
+        for (VehicleFramework vehicle : model.getVehicles()
         ) {
             try{
             vehicle.gas(gas);
@@ -37,7 +37,7 @@ public class CarController {
     }
     void brake(int amount) {
         double brake = ((double) amount) / 100;
-        for (VehicleFramework vehicle : model.getVehicles() 
+        for (VehicleFramework vehicle : model.getVehicles()
         ) try{
             vehicle.brake(brake);
             }
@@ -45,20 +45,20 @@ public class CarController {
                 continue;
             }
         }
-    
+
     void stopAllCars() {
-        for (VehicleFramework vehicle : model.getVehicles() 
+        for (VehicleFramework vehicle : model.getVehicles()
         ) vehicle.stopEngine();
     }
     void startAllCars() {
 
-        for (VehicleFramework vehicle : model.getVehicles() 
+        for (VehicleFramework vehicle : model.getVehicles()
         ) {
             vehicle.startEngine();
         }
     }
     void turboOn() {
-        for (VehicleFramework vehicle : model.getVehicles() 
+        for (VehicleFramework vehicle : model.getVehicles()
         ) {
             if (vehicle instanceof TurboVehicle) {
                 ((TurboVehicle) vehicle).setTurboOn();
@@ -88,28 +88,12 @@ public class CarController {
     }
     void addCar() {
         if (model.getVehicles().size() <= 10) {
-            model.getVehicles().add(new Volvo240());
+            model.addVehicle(new Volvo240());
         }
     }
     void removeCar() {
-        try {
-            if(checkIfLoaded((Car) model.getVehicles().getLast())){
-                model.getVolvoWorkshop().unload((Volvo240) model.getVehicles().getLast());
-                model.getVehicles().removeLast();
-
-            }
-            else{
-                model.getVehicles().removeLast();
-
-            }
-            frame.drawPanel.removeLastCarPosition();
-        }
-        catch(Exception exc){
-        }
+        model.removeVehicle();
     }
-    boolean checkIfLoaded(Car car){
-        if (car.getLoaded()){
-            return true;
-        }else return false;
-    }
+
+
 }

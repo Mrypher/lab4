@@ -5,7 +5,7 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class DrawPanel extends JPanel {
+public class DrawPanel extends JPanel implements VehicleObserver{
     Model model;
     private final CarController controller;
     private final Map<String, BufferedImage> vehicleImages = new HashMap<>();
@@ -37,6 +37,8 @@ public class DrawPanel extends JPanel {
             ex.printStackTrace();
         }
     }
+
+
 
     private void initializeCarPositions() {
         for (int i = 0; i < controller.model.getVehicles().size(); i++) {
@@ -89,5 +91,9 @@ public class DrawPanel extends JPanel {
                 }
 
         }
+    }
+    @Override
+    public void update(ArrayList<VehicleFramework> vehicles) {
+        repaint();
     }
 }
