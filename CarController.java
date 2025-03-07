@@ -1,8 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Time;
-import java.util.ArrayList;
 
 /*
  * This class represents the Controller part in the MVC pattern.
@@ -12,11 +8,9 @@ import java.util.ArrayList;
 
 public class CarController {
     public Timer timer;
-    public int delay = 20;
+    public int delay = 1;
 
     Model model;
-
-    CarView frame;
 
     public CarController() {
         this.model = new Model();

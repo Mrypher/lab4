@@ -32,13 +32,13 @@ public class Model {
 
     void removeVehicle() {
         try {
-            if(checkIfLoaded((Car) getVehicles().getLast())){
-                getVolvoWorkshop().unload((Volvo240) getVehicles().getLast());
-                getVehicles().removeLast();
+            if(checkIfLoaded((Car) getVehicles().get(vehicles.size()-1))){
+                getVolvoWorkshop().unload((Volvo240) getVehicles().get(vehicles.size()-1));
+                getVehicles().remove(vehicles.size()-1);
 
             }
             else{
-                getVehicles().removeLast();
+                getVehicles().remove(vehicles.size()-1);
 
             }
             frame.drawPanel.removeLastCarPosition();

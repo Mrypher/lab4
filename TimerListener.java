@@ -6,11 +6,11 @@ public class TimerListener implements ActionListener {
     Model model;
     CarView frame;
 
-
     public TimerListener(Model model, CarView frame) {
         this.model = model; // Initialize model
         this.frame = frame; // Initialize frame
     }
+
     public void actionPerformed(ActionEvent e) {
         for (VehicleFramework vehicle : model.getVehicles() ) {
             try {
