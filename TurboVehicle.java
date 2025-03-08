@@ -14,7 +14,7 @@ public abstract class TurboVehicle extends Car implements TurboLogic{
     }
 
     @Override
-    public boolean getLoaded() {
+    public CarState getLoaded() {
         return super.getLoaded();
     }
 

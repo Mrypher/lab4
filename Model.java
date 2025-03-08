@@ -47,7 +47,7 @@ public class Model {
         }
     }
     boolean checkIfLoaded(Car car){
-        if (car.getLoaded()){
+        if (car.getLoaded() instanceof LoadedState){
             return true;
         }else return false;
     }

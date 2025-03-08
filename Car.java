@@ -1,74 +1,64 @@
 import java.awt.*;
 
-public abstract class Car extends VehicleFramework{
-    private boolean Loaded;
+public abstract class Car extends VehicleFramework {
+    private CarState currentState;
 
-    public Car(int nrDoors, double enginePower, int weight, Color color, String modelname){
+    public Car(int nrDoors, double enginePower, int weight, Color color, String modelname) {
         super(nrDoors, enginePower, weight, color, modelname);
-        this.Loaded = false;
+        this.currentState = new NotLoadedState(this); // Initial state
         stopEngine();
     }
 
-    public void setLoaded(){
-        if (Loaded){
-            this.Loaded = false;
-        }
-        else{
-            this.Loaded = true;
+    public void setLoaded(boolean loaded) {
+        if (loaded) {
+            this.currentState = new LoadedState();
+        } else {
+            this.currentState = new NotLoadedState(this);
         }
     }
-    
-    public boolean getLoaded(){
-        return this.Loaded;
+
+    public CarState getLoaded() {
+        return this.currentState;
     }
-    
-    @Override
-    public void move(){
-        if(!this.Loaded){
+
+
+    public void move() {
+        currentState.move();
+    }
+
+    public void turnLeft() {
+        currentState.turnLeft();
+    }
+
+    public void turnRight() {
+        currentState.turnRight();
+    }
+
+    public void gas(double amount) {
+        currentState.gas(amount);
+    }
+
+    public void brake(double amount) {
+        currentState.brake(amount);
+    }
+        // Helper methods to call superclass methods
+        protected void superMove() {
             super.move();
         }
-        else{
-            throw new IllegalArgumentException("Car cannot move while loaded");
-        }
-    }
-
-    @Override
-    public void turnLeft(){
-        if(!this.Loaded){
+    
+        protected void superTurnLeft() {
             super.turnLeft();
         }
-        else{
-            throw new IllegalArgumentException("Car cannot turn left while loaded");
-        }
-    }
-
-    @Override
-    public void turnRight(){
-        if(!this.Loaded){
+    
+        protected void superTurnRight() {
             super.turnRight();
         }
-        else{
-            throw new IllegalArgumentException("Car cannot turn right while loaded");
-        }
-    }
-
-    @Override
-    public void gas(double amount){
-        if(!this.Loaded){
+    
+        protected void superGas(double amount) {
             super.gas(amount);
         }
-        else{
-            throw new IllegalArgumentException("Car cannot gas while loaded");
-        }
-    }
-
-    @Override
-    public void brake(double amount){
-        if(!this.Loaded){
+    
+        protected void superBrake(double amount) {
             super.brake(amount);
         }
-        else{
-            throw new IllegalArgumentException("Car cannot brake while loaded");
-        }
     }
-}

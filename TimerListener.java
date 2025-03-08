@@ -22,7 +22,7 @@ public class TimerListener implements ActionListener {
             int x = (int) Math.round(vehicle.getPosition()[0]);
             int y = (int) Math.round(vehicle.getPosition()[1]);
 
-            if (vehicle instanceof Volvo240 && !((Volvo240) vehicle).getLoaded()){
+            if (vehicle instanceof Volvo240 && ((Volvo240) vehicle).getLoaded() instanceof NotLoadedState){
                 if (y >= 450){
                     model.getVolvoWorkshop().load((Volvo240) vehicle);
                 }

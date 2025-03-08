@@ -14,11 +14,11 @@ public class LoadCar {
     protected void load(Car car){
         if (cargo.size() < this.maxcars){
             if (car.weight < 2000){
-                if(!car.getLoaded()){
-                cargo.add(car);
-                car.position = this.position;
-                car.stopEngine();
-                car.setLoaded();
+                if(car.getLoaded() instanceof NotLoadedState){
+                    cargo.add(car);
+                    car.position = this.position;
+                    car.stopEngine();
+                    car.setLoaded(true);
                 }
                 else{
                     throw new IllegalArgumentException("Car cannot be loaded if loaded");
@@ -34,7 +34,7 @@ public class LoadCar {
 
     protected void unload(Car car){
         cargo.remove(car);
-        car.setLoaded();
+        car.setLoaded(false);
     }
 
     public List<Car> getCargo(){
