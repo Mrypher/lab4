@@ -33,12 +33,11 @@ public class DrawPanel extends JPanel implements VehicleObserver{
                 BufferedImage image = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(imagePath)));
                 vehicleImages.put(vehicle.getClass().getSimpleName(), image);
             }
-        } catch (IOException ex) {
+        } 
+        catch(IOException ex) {
             ex.printStackTrace();
         }
     }
-
-
 
     private void initializeCarPositions() {
         for (int i = 0; i < controller.model.getVehicles().size(); i++) {
@@ -92,6 +91,7 @@ public class DrawPanel extends JPanel implements VehicleObserver{
 
         }
     }
+    
     @Override
     public void update(ArrayList<VehicleFramework> vehicles) {
         repaint();

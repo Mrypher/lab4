@@ -7,4 +7,3 @@ public class Saab95 extends TurboVehicle{
         this.position = new double[]{0,200};
     }
 }
-
